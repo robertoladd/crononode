@@ -1,0 +1,26 @@
+{
+  "name": "crononode",
+  "version": "0.1.0",
+  "description": "Crononode is a node.js module that allows you to measure the average time that it takes for a specific section of your code to run.",
+  "main": "crononode.js",
+  "scripts": {
+    "test": "jasmine-node tests/*.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robertoladd/crononode.git"
+  },
+  "keywords": [
+    "node.js",
+    "time",
+    "profiling",
+    "speed",
+    "performance"
+  ],
+  "author": "Roberto Ladd",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/robertoladd/crononode/issues"
+  },
+  "homepage": "https://github.com/robertoladd/crononode"
+}
