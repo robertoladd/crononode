@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "Crononode is a node.js module that allows you to measure the average time that it takes for a specific section of your code to run.",
   "main": "crononode.js",
+  "devDependencies": {
+    "jasmine-node": "latest"
+  },
   "scripts": {
-    "test": "jasmine-node tests/*.spec.js"
+    "test": "./node_modules/.bin/jasmine-node tests/*.spec.js"
   },
   "repository": {
     "type": "git",
