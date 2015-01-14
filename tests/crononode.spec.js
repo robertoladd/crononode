@@ -63,7 +63,6 @@ describe("Code section global Timing stats", function () {
     var test_interval = setInterval(function(){
         crononode.end('test-avg-200ms');
         crononode.start('test-avg-200ms');
-        console.log('end interval');
     }, 200);
     
     setTimeout(function(expect){
@@ -74,9 +73,7 @@ describe("Code section global Timing stats", function () {
         expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeGreaterThan(199);
         expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeLessThan(250);
         
-        console.log(crononode);
-        
         done();
-    }, 1000, expect);
+    }, 2001, expect);
   });
 });
