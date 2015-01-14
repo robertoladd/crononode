@@ -52,7 +52,7 @@ describe("Single iteration Timing", function () {
         var timing = crononode.end('test-2sec') / 1000;
         expect(timing).toBeGreaterThan(2);
         done();
-    }, 2001);
+    }, 2010);
   });
 });
 
