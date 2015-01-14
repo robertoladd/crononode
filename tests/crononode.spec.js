@@ -1,5 +1,11 @@
 /**
  *
+ * This is a jasmine-node set of tests for crononode module.
+ * 
+ * Use "jasmine-node tests --autotest --watch ." 
+ * within the modules root folder to test the application.
+ * 
+ *
  * @source: https://github.com/robertoladd/crononode
  *
  * @licstart  The following is the entire license notice for the 
