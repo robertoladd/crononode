@@ -52,7 +52,7 @@ describe("Single iteration Timing", function () {
         var timing = crononode.end('test-2sec') / 1000;
         expect(timing).toBeGreaterThan(2);
         done();
-    }, 2000);
+    }, 2001);
   });
 });
 
@@ -60,20 +60,28 @@ describe("Code section global Timing stats", function () {
   it("should record close to 200ms ", function (done) {
     crononode.start('test-avg-200ms');
     
+    var iterations = 1;
     var test_interval = setInterval(function(){
+        if(iterations == 20){
+            
+            crononode.end('test-avg-200ms');
+            
+            expect(crononode.inspections['test-avg-200ms']['total_iterations']).toBe(20);
+            expect(crononode.inspections['test-avg-200ms']['total_spent_time']).toBeGreaterThan(3999);
+            expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeGreaterThan(199);
+            expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeLessThan(250);
+            done();
+            clearInterval(test_interval);
+            return;
+        }
+        
+        iterations++;
         crononode.end('test-avg-200ms');
+        console.log(crononode.inspections['test-avg-200ms']['total_spent_time']);
         crononode.start('test-avg-200ms');
+        
     }, 200);
     
-    setTimeout(function(expect){
-        
-        clearInterval(test_interval);
-        crononode.end('test-avg-200ms');
-        
-        expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeGreaterThan(199);
-        expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeLessThan(250);
-        
-        done();
-    }, 2001, expect);
+
   });
 });
