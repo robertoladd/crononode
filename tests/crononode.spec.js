@@ -67,7 +67,7 @@ describe("Code section global Timing stats", function () {
             crononode.end('test-avg-200ms');
             
             expect(crononode.inspections['test-avg-200ms']['total_iterations']).toBe(20);
-            expect(crononode.inspections['test-avg-200ms']['total_spent_time']).toBeGreaterThan(3999);
+            expect(crononode.inspections['test-avg-200ms']['total_spent_time']).toBeGreaterThan(3990);
             expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeGreaterThan(199);
             expect(crononode.inspections['test-avg-200ms']['total_avg_spent_time']).toBeLessThan(250);
             done();
