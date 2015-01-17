@@ -44,6 +44,18 @@ function Crononode(stats_period){
         
         if(typeof stats_period === 'number') this.stats_period = stats_period;
         
+        /**
+         * Interger - Stats interval ID
+         */
+        
+        this.stats_interval_id = false;
+        
+        /**
+         * Initiate periodic log stats
+         */
+        
+        this.periodicStats();
+        
 }
 
 
@@ -61,12 +73,12 @@ Crononode.prototype.start = function(ref_name){
         //Create the new inspection
         if(typeof this.inspections[ref_name] == 'undefined'){
             this.inspections[ref_name] = {};
-            this.inspections[ref_name]['interval_spent_time'] = 0;
-            this.inspections[ref_name]['interval_iterations'] = 0;
-            this.inspections[ref_name]['interval_avg_spent_time'] = 0;
-            this.inspections[ref_name]['total_spent_time'] = 0;
-            this.inspections[ref_name]['total_iterations'] = 0;
-            this.inspections[ref_name]['total_avg_spent_time'] = 0;
+            this.inspections[ref_name]['interval_spent_time'] = 0;//time spent within current interval
+            this.inspections[ref_name]['interval_iterations'] = 0;//number of code section excecutions within the current interval
+            this.inspections[ref_name]['interval_avg_spent_time'] = 0;//the average spent time within the current interval
+            this.inspections[ref_name]['total_spent_time'] = 0;//the total spent time
+            this.inspections[ref_name]['total_iterations'] = 0;//the total code section excecutions
+            this.inspections[ref_name]['total_avg_spent_time'] = 0;//the total average spent time
         }
         
         this.inspections[ref_name]['previous_start'] = (new Date).getTime();
@@ -97,9 +109,48 @@ Crononode.prototype.end = function(ref_name){
         this.inspections[ref_name]['interval_iterations']++;
         this.inspections[ref_name]['total_spent_time']+=current_iteration_time;
         this.inspections[ref_name]['total_iterations']++;
-        this.inspections[ref_name]['total_avg_spent_time'] =  this.inspections[ref_name]['total_spent_time'] / this.inspections[ref_name]['total_iterations'];
+        this.inspections[ref_name]['total_avg_spent_time'] =  
+            (this.inspections[ref_name]['total_spent_time'] / this.inspections[ref_name]['total_iterations'])+'ms';
         
         return current_iteration_time;
+}
+
+
+/**
+* Log stats periodically
+*
+* @return {Integer}
+*/
+
+Crononode.prototype.periodicStats = function(){
+        var crono_instance = this;
+        this.stats_interval_id = setInterval(function(crono_instance){
+            
+            for(inspection in crono_instance.inspections){
+                crono_instance.inspections[inspection]['interval_avg_spent_time'] = 
+                    (crono_instance.inspections[inspection]['interval_spent_time'] / crono_instance.inspections[inspection]['interval_iterations'])+'ms';
+                console.log(inspection+' inspection stats:');
+                for(stat in crono_instance.inspections[inspection]){
+                    console.log("\t "+stat+": "+crono_instance.inspections[inspection][stat]);
+                }
+                //reset data for periodic stats
+                crono_instance.inspections[inspection]['interval_avg_spent_time']=0;
+                crono_instance.inspections[inspection]['interval_spent_time']=0;
+                crono_instance.inspections[inspection]['interval_iterations']=0;
+            }
+            
+        }, (this.stats_period * 1000), crono_instance);
+}
+
+
+/**
+* Clear periodical Log stats
+* 
+*/
+
+Crononode.prototype.clearPeriodicStats = function(){
+        if(!this.stats_interval_id) throw new Error('Attempt to clear a non existent Interval');
+        clearInterval(this.stats_interval_id);
 }
 
 
