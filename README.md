@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/robertoladd/crononode.svg)](https://travis-ci.org/robertoladd/crononode)
 
-# crononode v0.1.0
+# crononode v0.2.0
 Crononode is a node.js module that allows you to measure the average time that it takes for a specific section of your code to run.
 
 Crononode will print to console timing statistics of your defined code sections.
