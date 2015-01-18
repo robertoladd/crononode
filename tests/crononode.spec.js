@@ -39,9 +39,9 @@ var Crononode = require("../crononode");
 var crononode = false;
 
 describe("Crononode init", function () {
-  it("Should set the stats_period attribute to 1", function () {
-    crononode = new Crononode(1);
-    expect(crononode.stats_period).toBe(1);
+  it("Should set the stats_period attribute to 0", function () {
+    crononode = new Crononode(0);
+    expect(crononode.stats_period).toBe(0);
   });
 });
  
@@ -77,7 +77,7 @@ describe("Code section global Timing stats", function () {
         
         iterations++;
         crononode.end('test-avg-200ms');
-        console.log(crononode.inspections['test-avg-200ms']['total_spent_time']);
+        //console.log(crononode.inspections['test-avg-200ms']['total_spent_time']);
         crononode.start('test-avg-200ms');
         
     }, 200);

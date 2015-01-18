@@ -119,11 +119,13 @@ Crononode.prototype.end = function(ref_name){
 /**
 * Log stats periodically
 *
-* @return {Integer}
 */
 
 Crononode.prototype.periodicStats = function(){
         var crono_instance = this;
+        
+        if(!this.stats_period) return;
+            
         this.stats_interval_id = setInterval(function(crono_instance){
             
             for(inspection in crono_instance.inspections){

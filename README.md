@@ -7,11 +7,13 @@ Crononode will print to console timing statistics of your defined code sections.
 
 ##Usage
 
-Initialize module with a new instance. By default crononode will print statistics every 5 seconds, to change this interval pass the desired value in seconds as the first parameter:
+Initialize module with a new instance:
 ```node
 crononode = new Crononode(5);
 
 ```
+
+By default crononode will print statistics every 5 seconds, to change this interval pass the desired value in seconds as the first parameter. Use cero to disable periodic logging.
 
 Define as many code sections as you want using start and end methods. Set a unique name for each section:
 
